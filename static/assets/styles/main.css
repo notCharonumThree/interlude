@@ -50,7 +50,11 @@ body {
 
 .main-search {
   width: 50vw;
-  height: 5vh;
+  height: 10vh;
+  cursor: pointer;
+  border-radius: 10px;
+  border-color: var(--background-secondary);
+  color: var(--text-placeholder);
   font-family: 'Poppins', sans-serif;
   font-size: 16px;
   box-shadow: 0 0 15px 2px rgba(0, 0, 0, 0.2);

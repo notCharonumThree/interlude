@@ -28,11 +28,13 @@ app.use(express.static(path.join(__dirname, 'static')))
 
 if (config.routes !== false) {
   const routes = [
+    { path: '/tab', file: 'tab_idle.html' },
     { path: '/~', file: 'apps.html' },
     { path: '/-', file: 'games.html' },
     { path: '/!', file: 'settings.html' },
     { path: '/0', file: 'tabs.html' },
     { path: '/1', file: 'go.html' },
+    { path: '/2', file: 'trusted.html'},
     { path: '/', file: 'index.html' },
   ]
 
@@ -90,6 +92,7 @@ server.on('listening', () => {
   console.log(`Running at http://localhost:${PORT}`)
 })
 
-server.listen({
-  port: PORT,
-})
+server.listen(
+  PORT,
+  "0.0.0.0",
+)

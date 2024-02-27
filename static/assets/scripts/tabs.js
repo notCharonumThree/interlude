@@ -62,7 +62,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     newTab.classList.add('active')
 
-    newIframe.src = '/'
+    newIframe.src = '/tab'
     newIframe.dataset.tabId = tabCounter
     newIframe.classList.add('active')
     iframeContainer.appendChild(newIframe)
@@ -75,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function (event) {
 
     tabCounter++
   })
+  document.getElementById('add-tab').click()
 
   window.addEventListener('message', function (event) {
     console.log('Received message:', event.data)

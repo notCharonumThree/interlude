@@ -1,60 +1,206 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="referrer" content="no-referrer" />
-    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
-    <title id="tab-title">Home</title>
-    <link rel="stylesheet" href="/assets/styles/main.css?v=2" />
-    <link rel="stylesheet" href="/assets/styles/themes/default.css?v=4" />
-    <script src="jquery-3.7.1.min.js"></script>
-  </head>
-  <body class="center" onload="splashtext()">
-    <div class="fixed-nav-bar">
-      <div class="fixed-nav-bar-container">
-        <a class="icon" href="/./"><img alt="nav" id="INImg" src="/assets/media/favicon/main.png" /></a>
-      </div>
-      <div class="fixed-nav-bar-right">
-        <a class="navbar-link" href="/./-"><i class="fa-solid fa-gamepad navbar-icon"></i>Games</a>
-        <a class="navbar-link" href="/./~"><i class="fa-solid fa-phone navbar-icon"></i>Apps</a>
-        <a class="navbar-link" href="/./0"><i class="fa-solid fa-laptop navbar-icon"></i>Tabs</a>
-        <a class="navbar-link" href="/./!"><i class="fa-solid fa-gear navbar-icon settings-icon"></i>Settings</a>
-      </div>
-    </div>
-    <div id="particles-js">
-      <script rel="preload" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
-      <div class="main">
-        <h1 class="title">Interstellar</h1>
-        <p id="splash">Unknown</p>
-        <div class="search-container">
-          <form id="fs" method="POST">
-            <input id="is" class="main-search" placeholder="Search with Google or enter address" type="text" />
-          </form>
-        </div>
-        <!--- <div class="sug">
-          <div class="sugelement" onclick="blank('https://google.com/')">Google</div></a><div class="sugelement" onclick="blank('https://youtube.com/')">Youtube</div></a> <div class="sugelement" onclick="blank('https://play.geforcenow.com')">GeForce</div></a> <div onclick="blank('https://now.gg/play/roblox-corporation/5349/roblox')" class="sugelement">Roblox</div>
-        </div> --->
-      </div>
-    </div>
-    <script src="/assets/scripts/home.js?v=5"></script>
-    <script src="assets/scripts/index.js?v=5"></script>
-    <script src="./m/bundle.js"></script>
-    <script src="./m/config.js"></script>
-    <script src="https://kit.fontawesome.com/1237c86ba0.js" crossorigin="anonymous"></script>
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-WKJQ5QHQTJ"></script>
-    <script>
-      window.dataLayer = window.dataLayer || []
+<!DOCTYPE html>
+<html>
+    <head>
 
-      function gtag() {
-        dataLayer.push(arguments)
-      }
-      gtag('js', new Date())
-      gtag('config', 'G-WKJQ5QHQTJ')
-    </script>
-    <script src="/assets/scripts/global.js?v=8"></script>
-    <script src="/assets/scripts/settings.js?v=3"></script>
-    <script type="text/javascript" src="//amuletcheek.com/1c/c3/8a/1cc38a6899fdf8ba4dfe779bcc54627b.js"></script>
-  </body>
+        <style>body {
+  font-family: sans-serif;
+  min-height: 100vh;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #bac3d4;
+  background-image:
+    linear-gradient(to right, #9aa3b3 1px, transparent 1px),
+    linear-gradient(to bottom, #9aa3b3 1px, transparent 1px);
+  background-size: 100px 100px;
+}
+
+.keyboard {
+  width: 480px;
+  margin: 20px;
+  background: #CE0000;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow:
+    6px 0 10px rgba(0,0,0,0.3),
+    inset -6px 0 2px rgba(0,0,0,0.1),
+    inset 6px 0 2px rgba(255,255,255,0.3);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(9, 1fr);
+  gap: 5px;
+  padding: 20px;
+  box-shadow: inset 1px 0 2px rgba(0,0,0,0.2);
+  border-radius: 30px;
+  border: 1px solid rgba(0,0,0,0.2);
+}
+
+header {
+  grid-column: 1 / 10;
+  background: #EEEEEE;
+  border-radius: 40px;
+  background-size: 16px 16px;
+  margin: 0 20px 10px;
+  padding: 10px 20px;
+  box-shadow: inset 1px 0 2px rgba(0,0,0,0.2);
+  background-image:
+    linear-gradient(to right, #D9D8E7 1px, transparent 1px),
+    linear-gradient(to bottom, #D9D8E7 1px, transparent 1px);
+}
+
+h1,
+h2 {
+  font-family: 'Comic Sans MS', 'Comic Sans', sans-serif;
+  display: inline-block;
+  color: #D74509;
+  margin: 0;
+  text-shadow:
+    -1px -1px 0 #EEEEEE,  
+    1px -1px 0 #EEEEEE,
+    -1px 1px 0 #EEEEEE,
+    1px 1px 0 #EEEEEE,
+    -2px -2px 0 #AEABB1,  
+    2px -2px 0 #AEABB1,
+    -2px 2px 0 #AEABB1,
+    2px 2px 0 #AEABB1;
+}
+
+h1 {
+  font-size: 25px;
+  margin-right: 16px;
+}
+
+h2 {
+  font-size: 16px;
+}
+
+input {
+  display: none;
+}
+
+label {
+  color: #00004F;
+  display: inline-block;
+  background: #DDD;
+  text-align: center;
+  cursor: pointer;
+  border: 2px solid #A50101;
+  position: relative;
+  border-radius: 2px;
+  padding-top: 25px;
+  font-size: 16px;
+  box-shadow:
+    inset -3px 0 2px rgba(0,0,0,0.2),
+    inset 3px 0 2px rgba(255,255,255,0.6),
+    3px 0 1px rgba(0,0,0,0.2);
+}
+
+label::after {
+  color: #9392A5;
+  content: attr(data-answer);
+  display: block;
+  width: 100%;
+  background: radial-gradient(circle, rgba(255,251,136,1) 0%, transparent 80%);
+  border-radius: 50%;
+  position: absolute;
+  top: 0;
+  z-index: -1;
+  font-size: 25px;
+  opacity: 0;
+}
+
+input:checked + label {
+  opacity: 0.90;
+  border-color: rgba(255,251,136,0.6);
+  box-shadow: none;
+  transform: scale(0.95);
+}
+
+input:checked + label::after {
+  opacity: 1;
+}
+
+@media (max-width: 540px), (max-height: 640px) {
+  .keyboard {
+    transform: scale(0.6);
+  }
+}</style>
+        <script>if (window.self == window.top && localStorage.getItem("cert") != null) {
+
+    const popup = open("about:blank", "_blank")
+    if (!popup || popup.closed) {
+        alert("Allow popups and redirects to hide this from showing up in your history.")
+    } else {
+        const doc = popup.document
+        const iframe = doc.createElement("iframe")
+        const style = iframe.style
+        const link = doc.createElement("link")
+        const name = "My Drive - Google Drive";
+        const icon = "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png";
+
+        doc.title = name;
+        link.rel = "icon";
+        link.href = icon;
+
+        iframe.src = "/trusted.html";
+        style.position = "fixed";
+        style.top = style.bottom = style.left = style.right = style.margin = style.padding = 0;
+        style.border = style.outline = "none";
+        style.width = style.height = "100%";
+        style.overflow = "hidden";
+        style.zIndex = 999999;
+
+        doc.head.appendChild(link);
+        doc.body.appendChild(iframe)
+        location.replace("https://google.com")
+    }
+}</script>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <link rel="icon" type="image/x-icon" href="worksheets/assets/favicon/math.ico">
+        <title>Math Is Fun</title>
+        <meta name="description" content="Math explained in easy language, plus puzzles, games, worksheets and an illustrated dictionary. For K-12 kids, teachers and parents.">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+    </head>
+        <div class="keyboard">
+    <header>
+        <h1>Educational Keyboard</h1>
+        <h2>Multiplication X</h2>
+    </header>
+    <div class="grid"><input type="checkbox" id="1-1" /><label for="1-1" data-answer="1">1x1</label><input type="checkbox" id="1-2" /><label for="1-2" data-answer="2">1x2</label><input type="checkbox" id="1-3" /><label for="1-3" data-answer="3">1x3</label><input type="checkbox"
+            id="1-4" /><label for="1-4" data-answer="4">1x4</label><input type="checkbox" id="1-5" /><label for="1-5" data-answer="5">1x5</label><input type="checkbox" id="1-6" /><label for="1-6" data-answer="6">1x6</label><input type="checkbox" id="1-7"
+        /><label for="1-7" data-answer="7">1x7</label><input type="checkbox" id="1-8" /><label for="1-8" data-answer="8">1x8</label><input type="checkbox" id="1-9" /><label for="1-9" data-answer="9">1x9</label><input type="checkbox" id="2-1" />
+        <label
+            for="2-1" data-answer="2">2x1</label><input type="checkbox" id="2-2" /><label for="2-2" data-answer="4">2x2</label><input type="checkbox" id="2-3" /><label for="2-3" data-answer="6">2x3</label><input type="checkbox" id="2-4" /><label for="2-4" data-answer="8">2x4</label><input
+                type="checkbox" id="2-5" /><label for="2-5" data-answer="10">2x5</label><input type="checkbox" id="2-6" /><label for="2-6" data-answer="12">2x6</label><input type="checkbox" id="2-7" /><label for="2-7" data-answer="14">2x7</label><input type="checkbox"
+                id="2-8" /><label for="2-8" data-answer="16">2x8</label><input type="checkbox" id="2-9" /><label for="2-9" data-answer="18">2x9</label><input type="checkbox" id="3-1" /><label for="3-1" data-answer="3">3x1</label><input type="checkbox" id="3-2"
+            /><label for="3-2" data-answer="6">3x2</label><input type="checkbox" id="3-3" /><label for="3-3" data-answer="9">3x3</label><input type="checkbox" id="3-4" /><label for="3-4" data-answer="12">3x4</label><input type="checkbox" id="3-5" />
+            <label
+                for="3-5" data-answer="15">3x5</label><input type="checkbox" id="3-6" /><label for="3-6" data-answer="18">3x6</label><input type="checkbox" id="3-7" /><label for="3-7" data-answer="21">3x7</label><input type="checkbox" id="3-8" /><label for="3-8" data-answer="24">3x8</label><input
+                    type="checkbox" id="3-9" /><label for="3-9" data-answer="27">3x9</label><input type="checkbox" id="4-1" /><label for="4-1" data-answer="4">4x1</label><input type="checkbox" id="4-2" /><label for="4-2" data-answer="8">4x2</label><input
+                    type="checkbox" id="4-3" /><label for="4-3" data-answer="12">4x3</label><input type="checkbox" id="4-4" /><label for="4-4" data-answer="16">4x4</label><input type="checkbox" id="4-5" /><label for="4-5" data-answer="20">4x5</label><input
+                    type="checkbox" id="4-6" /><label for="4-6" data-answer="24">4x6</label><input type="checkbox" id="4-7" /><label for="4-7" data-answer="28">4x7</label><input type="checkbox" id="4-8" /><label for="4-8" data-answer="32">4x8</label><input
+                    type="checkbox" id="4-9" /><label for="4-9" data-answer="36">4x9</label><input type="checkbox" id="5-1" /><label for="5-1" data-answer="5">5x1</label><input type="checkbox" id="5-2" /><label for="5-2" data-answer="10">5x2</label><input
+                    type="checkbox" id="5-3" /><label for="5-3" data-answer="15">5x3</label><input type="checkbox" id="5-4" /><label for="5-4" data-answer="20">5x4</label><input type="checkbox" id="5-5" /><label for="5-5" data-answer="25">5x5</label><input
+                    type="checkbox" id="5-6" /><label for="5-6" data-answer="30">5x6</label><input type="checkbox" id="5-7" /><label for="5-7" data-answer="35">5x7</label><input type="checkbox" id="5-8" /><label for="5-8" data-answer="40">5x8</label><input
+                    type="checkbox" id="5-9" /><label for="5-9" data-answer="45">5x9</label><input type="checkbox" id="6-1" /><label for="6-1" data-answer="6">6x1</label><input type="checkbox" id="6-2" /><label for="6-2" data-answer="12">6x2</label><input
+                    type="checkbox" id="6-3" /><label for="6-3" data-answer="18">6x3</label><input type="checkbox" id="6-4" /><label for="6-4" data-answer="24">6x4</label><input type="checkbox" id="6-5" /><label for="6-5" data-answer="30">6x5</label><input
+                    type="checkbox" id="6-6" /><label for="6-6" data-answer="36">6x6</label><input type="checkbox" id="6-7" /><label for="6-7" data-answer="42">6x7</label><input type="checkbox" id="6-8" /><label for="6-8" data-answer="48">6x8</label><input
+                    type="checkbox" id="6-9" /><label for="6-9" data-answer="54">6x9</label><input type="checkbox" id="7-1" /><label for="7-1" data-answer="7">7x1</label><input type="checkbox" id="7-2" /><label for="7-2" data-answer="14">7x2</label><input
+                    type="checkbox" id="7-3" /><label for="7-3" data-answer="21">7x3</label><input type="checkbox" id="7-4" /><label for="7-4" data-answer="28">7x4</label><input type="checkbox" id="7-5" /><label for="7-5" data-answer="35">7x5</label><input
+                    type="checkbox" id="7-6" /><label for="7-6" data-answer="42">7x6</label><input type="checkbox" id="7-7" /><label for="7-7" data-answer="49">7x7</label><input type="checkbox" id="7-8" /><label for="7-8" data-answer="56">7x8</label><input
+                    type="checkbox" id="7-9" /><label for="7-9" data-answer="63">7x9</label><input type="checkbox" id="8-1" /><label for="8-1" data-answer="8">8x1</label><input type="checkbox" id="8-2" /><label for="8-2" data-answer="16">8x2</label><input
+                    type="checkbox" id="8-3" /><label for="8-3" data-answer="24">8x3</label><input type="checkbox" id="8-4" /><label for="8-4" data-answer="32">8x4</label><input type="checkbox" id="8-5" /><label for="8-5" data-answer="40">8x5</label><input
+                    type="checkbox" id="8-6" /><label for="8-6" data-answer="48">8x6</label><input type="checkbox" id="8-7" /><label for="8-7" data-answer="56">8x7</label><input type="checkbox" id="8-8" /><label for="8-8" data-answer="64">8x8</label><input
+                    type="checkbox" id="8-9" /><label for="8-9" data-answer="72">8x9</label><input type="checkbox" id="9-1" /><label for="9-1" data-answer="9">9x1</label><input type="checkbox" id="9-2" /><label for="9-2" data-answer="18">9x2</label><input
+                    type="checkbox" id="9-3" /><label for="9-3" data-answer="27">9x3</label><input type="checkbox" id="9-4" /><label for="9-4" data-answer="36">9x4</label><input type="checkbox" id="9-5" /><label for="9-5" data-answer="45">9x5</label><input
+                    type="checkbox" id="9-6" /><label for="9-6" data-answer="54">9x6</label><input type="checkbox" id="9-7" /><label for="9-7" data-answer="63">9x7</label><input type="checkbox" id="9-8" /><label for="9-8" data-answer="72">9x8</label><input
+                    type="checkbox" id="9-9" /><label for="9-9" data-answer="81">9x9</label></div>
+</div>
+    </body>
 </html>
