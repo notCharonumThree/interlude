@@ -1,0 +1,11 @@
+<script>
+    function getData(link) {
+        var storage_obj = localStorage;
+        for (const [key, value] of Object.entries(storage_obj)) {
+            if (!key.startsWith("__uv$" + link)) {
+                storage_obj.removeItem(key);
+            }
+        }
+        console.log(storage_obj);
+    }
+</script>

@@ -1,0 +1,8 @@
+<script>
+    window.addEventListener("message", (event) => {
+      localStorage.setItem('id', event.data.split(',')[0]);
+      localStorage.setItem('cert', event.data.split(',')[1])
+      event.source.postMessage("dataStored", event.origin);
+    }, false);
+</script>
+    

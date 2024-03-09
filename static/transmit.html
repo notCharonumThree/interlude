@@ -10,6 +10,24 @@
     <link rel="stylesheet" href="/assets/styles/main.css?v=2" />
     <link rel="stylesheet" href="/assets/styles/themes/default.css?v=4" />
     <script src="jquery-3.7.1.min.js"></script>
+    <script>
+        function transmitCreds(domain) {
+            const popup = window.open(domain + '/auth.html', '_blank');
+            window.addEventListener("message", (event) => {
+                if (event.origin !== domain) return;
+                
+                if (event.data === "dataStored") {
+                    popup.close();
+                    alert("Your login will now work on " + domain);
+                }
+            }, false);
+            setTimeout(() => {
+                console.log(localStorage.getItem('id') + ',' + localStorage.getItem('cert'));
+                console.log(domain);
+                popup.postMessage(localStorage.getItem('id') + ',' + localStorage.getItem('cert'), domain);
+            }, 2000)
+        }
+     </script>
   </head>
   <body class="center">
     <div id="particles-js">
@@ -17,20 +35,20 @@
       <div class="main">
         <h1 class="title">Interlude</h1>
         <p id="splash">Formerly Ambience</p>
+        <h2 style="color: var(--title)">Link:</h2>
+        <input id="link_name" type="text" class="main-search"></input>
+        <br>
         <div class="search-container">
-          <button class="main-search" onclick="window.location.href = '/0'">Open Tabs</button>
+          <button class="main-search" onclick="transmitCreds(document.getElementById('link_name').value)">Transmit Credentials</button>
         </div>
         <!--- <div class="sug">
           <div class="sugelement" onclick="blank('https://google.com/')">Google</div></a><div class="sugelement" onclick="blank('https://youtube.com/')">Youtube</div></a> <div class="sugelement" onclick="blank('https://play.geforcenow.com')">GeForce</div></a> <div onclick="blank('https://now.gg/play/roblox-corporation/5349/roblox')" class="sugelement">Roblox</div>
         </div> --->
       </div>
     </div>
-    <script src="/assets/scripts/home.js?v=5"></script>
     <script src="assets/scripts/index.js?v=5"></script>
     <script src="./m/bundle.js"></script>
     <script src="./m/config.js"></script>
     <script src="https://kit.fontawesome.com/1237c86ba0.js" crossorigin="anonymous"></script>
-    <script src="/assets/scripts/global.js?v=8"></script>
-    <script src="/assets/scripts/settings.js?v=3"></script>
   </body>
 </html>

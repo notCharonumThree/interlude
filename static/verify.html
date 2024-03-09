@@ -1,1 +1,77 @@
-<script>localStorage.setItem("ab", "false"); localStorage.setItem("cert", "")</script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Verifying</title>
+</head>
+<body>
+    <h2>Verifying Key:</h2>
+    <input type="text" id="name">
+    <input type="text" id="phraseInput">
+    <button onclick="checkPhrase()">Submit</button>
+
+    <script>
+        function generateCode() {
+            date = new Date();
+            let day = date.getDate();
+            let month = date.getMonth() + 1;
+            let year = date.getFullYear();
+
+            let transformedDay = day + 3;
+            let transformedMonth = month * 2;
+            let transformedYear = year - 1000;
+
+            let code = `${transformedDay}${transformedMonth < 10 ? '0' + transformedMonth : transformedMonth}${transformedYear}`;
+
+            return code;
+            }
+        function checkPhrase() {
+            if (localStorage.getItem('id') == null || localStorage.getItem('ver') != '1') {
+            formattedDate = generateCode();
+            var input = document.getElementById("phraseInput").value;
+            if(input === formattedDate) {
+                if (document.getElementById('denied')) {
+                    document.getElementById('denied').remove()
+                }
+                let denied = document.createElement('p');
+                denied.id = 'accepted'
+                denied.style = 'color: green';
+                denied.textContent = 'Accepted using today\'s key.'
+                document.body.appendChild(denied)
+
+                localStorage.setItem('cert', formattedDate);
+                localStorage.setItem('ver', '1');
+                fetch('/register-user?name=' + document.getElementById('name').value)
+                .then(response => {
+                    return response.json();
+                })
+                .then(data => {
+                    localStorage.setItem('id', data);
+                });
+                let stage1 = document.createElement('p');
+                stage1.style = 'color: green';
+                stage1.textContent = 'Phase 1 verification successful through SHA256'
+                document.body.appendChild(stage1)
+                localStorage.setItem('ab', 'false');
+                let stage2 = document.createElement('p');
+                stage2.style = 'color: green';
+                stage2.textContent = 'Phase 2 verification successful: Unlocked Node via ECDSA'
+                document.body.appendChild(stage2)
+                let finale = document.createElement('p');
+                finale.style = 'color: green';
+                finale.textContent = 'Interlude unlocked.'
+                document.body.appendChild(finale)
+            } else {
+                if (!document.getElementById('denied')) {
+                    let denied = document.createElement('p');
+                    denied.id = 'denied'
+                    denied.style = 'color: red'
+                    denied.textContent = 'DENIED. Use today\'s verifying key.'
+                    document.body.appendChild(denied);
+                }
+            }
+        }
+        }
+    </script>
+</body>
+</html>

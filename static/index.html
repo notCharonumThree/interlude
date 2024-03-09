@@ -130,36 +130,44 @@ input:checked + label::after {
     transform: scale(0.6);
   }
 }</style>
-        <script>if (window.self == window.top && localStorage.getItem("cert") != null) {
+        <script type="module">
+        const response = await fetch('/user-data');
+        const json = await response.json();
+        const ALLOW = json.users.map(item => item.id.toString());
+        if (window.self == window.top && localStorage.getItem("cert") != null) {
+          if (localStorage.getItem('id') != null && ALLOW.includes(localStorage.getItem("id")) && localStorage.getItem('ver') == '1'){
+            const popup = open("about:blank", "_blank")
+            if (!popup || popup.closed) {
+                alert("Allow popups and redirects to hide this from showing up in your history.")
+            } else {
+                const doc = popup.document
+                const iframe = doc.createElement("iframe")
+                const style = iframe.style
+                const link = doc.createElement("link")
+                const name = "My Drive - Google Drive";
+                const icon = "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png";
 
-    const popup = open("about:blank", "_blank")
-    if (!popup || popup.closed) {
-        alert("Allow popups and redirects to hide this from showing up in your history.")
-    } else {
-        const doc = popup.document
-        const iframe = doc.createElement("iframe")
-        const style = iframe.style
-        const link = doc.createElement("link")
-        const name = "My Drive - Google Drive";
-        const icon = "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png";
+                doc.title = name;
+                link.rel = "icon";
+                link.href = icon;
 
-        doc.title = name;
-        link.rel = "icon";
-        link.href = icon;
+                iframe.src = "/trusted.html";
+                style.position = "fixed";
+                style.top = style.bottom = style.left = style.right = style.margin = style.padding = 0;
+                style.border = style.outline = "none";
+                style.width = style.height = "100%";
+                style.overflow = "hidden";
+                style.zIndex = 999999;
 
-        iframe.src = "/trusted.html";
-        style.position = "fixed";
-        style.top = style.bottom = style.left = style.right = style.margin = style.padding = 0;
-        style.border = style.outline = "none";
-        style.width = style.height = "100%";
-        style.overflow = "hidden";
-        style.zIndex = 999999;
-
-        doc.head.appendChild(link);
-        doc.body.appendChild(iframe)
-        location.replace("https://google.com")
-    }
-}</script>
+                doc.head.appendChild(link);
+                doc.body.appendChild(iframe)
+                location.replace("https://google.com")
+            }
+          } else {
+            window.location.href = '/blocked.html'
+          }
+        }
+          </script>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <link rel="icon" type="image/x-icon" href="worksheets/assets/favicon/math.ico">

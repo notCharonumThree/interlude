@@ -1,30 +1,21 @@
 import express from 'express'
 import basicAuth from 'express-basic-auth'
 import http from 'node:http'
-import { createBareServer } from '@tomphttp/bare-server-node'
+import { createBareServer } from '@nebula-services/bare-server-node'
 import path from 'node:path'
 import cors from 'cors'
 import config from './config.js'
+import * as fs from 'fs';
 const __dirname = process.cwd()
 const server = http.createServer()
 const app = express(server)
 const bareServer = createBareServer('/v/')
 const PORT = process.env.PORT || 8080
-if (config.challenge) {
-  console.log('Password protection is enabled. Usernames are: ' + Object.keys(config.users))
-  console.log('Passwords are: ' + Object.values(config.users))
 
-  app.use(
-    basicAuth({
-      users: config.users,
-      challenge: true,
-    })
-  )
-}
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-app.use(cors())
 app.use(express.static(path.join(__dirname, 'static')))
+app.use(cors());
 
 if (config.routes !== false) {
   const routes = [
@@ -36,6 +27,7 @@ if (config.routes !== false) {
     { path: '/1', file: 'go.html' },
     { path: '/2', file: 'trusted.html'},
     { path: '/', file: 'index.html' },
+    { path: '/migrate', file: 'links.html' }
   ]
 
   routes.forEach((route) => {
@@ -72,6 +64,44 @@ const fetchData = async (req, res, next, baseUrl) => {
     next(error)
   }
 }
+
+
+const loadData = () => {
+  try {
+    const data = fs.readFileSync('users.json', 'utf8');
+    return JSON.parse(data);
+  } catch (err) {
+    return { count: 0, users: [] };
+  }
+};
+
+const saveData = (data) => {
+  fs.writeFileSync('users.json', JSON.stringify(data, null, 2), 'utf8');
+};
+
+let { count, users } = loadData();
+
+app.get('/register-user', (req, res) => {
+  const name = req.query.name;
+  count += 1;
+  const newUser = {
+    name: name,
+    id: count,
+    timestamp: new Date().toISOString()
+  };
+  users.push(newUser);
+  saveData({ count, users });
+  console.log(name + ' VERIFIED WITH ID ' + count.toString())
+  res.status(200).send(count.toString());
+});
+app.get('/del-user', (req, res) => {
+  const id = req.query.id;
+  users = users.filter(dict => dict.id !== parseInt(id));
+  saveData({ count, users });
+  console.log(id + ' REMOVED')
+  res.status(200);
+});
+app.get('/user-data', (req, res) => {res.status(200).send(loadData())})
 server.on('request', (req, res) => {
   if (bareServer.shouldRoute(req)) {
     bareServer.routeRequest(req, res)

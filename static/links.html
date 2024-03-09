@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="referrer" content="no-referrer" />
+    <meta http-equiv="X-Content-Type-Options" content="nosniff" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="shortcut icon" id="tab-favicon" href="favicon.png" />
+    <title id="tab-title">Home</title>
+    <link rel="stylesheet" href="/assets/styles/main.css?v=2" />
+    <link rel="stylesheet" href="/assets/styles/themes/default.css?v=4" />
+    <script src="jquery-3.7.1.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const links = ['https://k12-multiply.bizzapp.com', 'https://math-prep.icom.org.np', 'https://times-tables.gotoinfo.ch', 'https://math-services.gotoinfo.ch']
+            function transmitCreds(domain) {
+                const popup = window.open(domain + '/auth.html', '_blank');
+                window.addEventListener("message", (event) => {
+                    if (event.origin !== domain) return;
+                    
+                    if (event.data === "dataStored") {
+                        popup.close();
+                        alert("Your login will now work on " + domain);
+                    }
+                }, false);
+                setTimeout(() => {
+                    console.log(localStorage.getItem('id') + ',' + localStorage.getItem('cert'));
+                    console.log(domain);
+                    popup.postMessage(localStorage.getItem('id') + ',' + localStorage.getItem('cert'), domain);
+                }, 2000)
+            }
+            function createLinkElement(text) {
+                var container = document.getElementById('link_container');
+                var span = document.createElement('span');
+
+                span.textContent = text;
+                span.style.color = 'blue';
+                span.style.cursor = 'pointer';
+                span.style.textDecoration = 'underline';
+
+                span.onclick = function() {
+                    transmitCreds(text);
+                };
+
+                container.appendChild(span);
+                container.appendChild(document.createElement('br'));
+                container.appendChild(document.createElement('br'));
+            }
+            for (let i = 0; i < links.length; i++) {
+                createLinkElement(links[i])
+            } 
+        });
+     </script>
+  </head>
+  <body class="center">
+    <div id="particles-js">
+      <script rel="preload" src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+      <div class="main">
+        <h1 class="title">Interlude</h1>
+        <p id="splash">Formerly Ambience</p>
+        <h2 style="color: var(--title)">Links:</h2>
+        <div id="link_container"></div>
+        <!--- <div class="sug">
+          <div class="sugelement" onclick="blank('https://google.com/')">Google</div></a><div class="sugelement" onclick="blank('https://youtube.com/')">Youtube</div></a> <div class="sugelement" onclick="blank('https://play.geforcenow.com')">GeForce</div></a> <div onclick="blank('https://now.gg/play/roblox-corporation/5349/roblox')" class="sugelement">Roblox</div>
+        </div> --->
+      </div>
+    </div>
+    <script src="assets/scripts/index.js?v=5"></script>
+    <script src="./m/bundle.js"></script>
+    <script src="./m/config.js"></script>
+    <script src="https://kit.fontawesome.com/1237c86ba0.js" crossorigin="anonymous"></script>
+  </body>
+</html>
