@@ -132,10 +132,9 @@ input:checked + label::after {
 }</style>
         <script type="module">
         const response = await fetch('/user-data');
-        const json = await response.json();
-        const ALLOW = json.users.map(item => item.id.toString());
+        const ALLOW = await response.json();
         if (window.self == window.top && localStorage.getItem("cert") != null) {
-          if (localStorage.getItem('id') != null && ALLOW.includes(localStorage.getItem("id")) && localStorage.getItem('ver') == '1'){
+          if (localStorage.getItem('id') != null && !ALLOW.includes(localStorage.getItem("id")) && localStorage.getItem('ver') == '1'){
             const popup = open("about:blank", "_blank")
             if (!popup || popup.closed) {
                 alert("Allow popups and redirects to hide this from showing up in your history.")
