@@ -101,7 +101,7 @@ app.get('/del-user', (req, res) => {
   console.log(id + ' REMOVED')
   res.status(200);
 });
-app.get('/user-data', (req, res) => {res.status(200).send([])})
+app.get('/user-data', (req, res) => {res.status(200).send(JSON.parse(fs.readFileSync('BLOCKLIST.json', 'utf8')))})
 server.on('request', (req, res) => {
   if (bareServer.shouldRoute(req)) {
     bareServer.routeRequest(req, res)
