@@ -9,7 +9,7 @@ import * as fs from 'fs';
 const __dirname = process.cwd()
 const server = http.createServer()
 const app = express(server)
-const bareServer = createBareServer('/v/')
+const bareServer = createBareServer('/ov/')
 const PORT = process.env.PORT || 8080
 
 app.use(express.json())
